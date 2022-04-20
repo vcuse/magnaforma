@@ -1,0 +1,104 @@
+#include <Adafruit_NeoPixel.h>
+// Which pin on the Arduino is connected to the NeoPixels?
+// On a Trinket or Gemma we suggest changing this to 1:
+#define LED_PIN    2
+
+// How many NeoPixels are attached to the Arduino?
+#define LED_COUNT 60
+
+// Declare our NeoPixel strip object:
+Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
+uint32_t red = strip.Color(255,0, 0);
+uint32_t green = strip.Color(0,255,0);
+uint32_t blue = strip.Color(0, 0, 255);
+uint32_t s = strip.Color(0, 255, 100);
+
+int x1[] = {0,1,2,3,4,5,6};
+int x2[] = {52,53,54,55,56,57,58};
+int posx = 59;
+int x3[] = {22,23,24,25,26,27,28};
+int negx = 29;
+int x4[] = {30,31,32,33,34,35,36};
+int y1[] = {7,8,9,10,11,12,13};
+int negy = 14;
+int y2[] = {45,46,47,48,49,50,51};
+int y3[] = {15,16,17,18,19,20,21};
+int posy = 44;
+int y4[] = {37,38,39,40,41,42,43};
+// Argument 1 = Number of pixels in NeoPixel strip
+// Argument 2 = Arduino pin number (most are valid)
+// Argument 3 = Pixel type flags, add together as needed:
+//   NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
+//   NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
+//   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
+//   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
+//   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
+void setup() {
+  Serial.begin(9600);
+  strip.begin();
+  strip.show();
+  strip.setBrightness(120);
+}
+void loop() {
+  falling();
+}
+
+void rainbowchase(){
+  chase(strip.Color(255, 0, 0)); // Red
+  chase(strip.Color(255, 50, 0));
+  chase(strip.Color(255, 255, 0));
+  chase(strip.Color(0, 255, 0)); // Green
+  chase(strip.Color(0, 0, 255));
+  chase(strip.Color(100, 0, 180));
+  chase(strip.Color(255, 0, 255)); // Blue
+}
+
+static void chase(uint32_t c) {
+  for(uint16_t i=0; i<strip.numPixels()+4; i++) {
+      strip.setPixelColor(i  , c); // Draw new pixel
+      //strip.setPixelColor(i-4, 0); // Erase pixel a few steps back
+      strip.show();
+  }
+}
+
+void falling(){
+  
+  for(uint32_t i=0; i<30; i++) {
+      strip.setPixelColor(i , 30-i,0,i);
+      strip.setPixelColor(59-i,i,0,30-i);
+     
+      strip.show();
+      delay(50);
+  }
+}
+
+void cube(uint32_t x, uint32_t y, uint32_t z, uint32_t a){
+  strip.fill(x, 0, 7);
+  strip.fill(y, 7, 21);
+  strip.fill(z, 22, 36);
+  strip.fill(a, 37, 51);
+  strip.fill(x, 52, 59);
+  strip.show(); 
+  delay(500);
+  strip.fill(a, 0, 7);
+  strip.fill(x, 7, 21);
+  strip.fill(y, 22, 36);
+  strip.fill(z, 37, 51);
+  strip.fill(a, 52, 59);
+  strip.show(); 
+  delay(500);
+  strip.fill(z, 0, 7);
+  strip.fill(a, 7, 21);
+  strip.fill(x, 22, 36);
+  strip.fill(y, 37, 51);
+  strip.fill(z, 52, 59);
+  strip.show(); 
+  delay(500);
+  strip.fill(y, 0, 7);
+  strip.fill(z, 7, 21);
+  strip.fill(a, 22, 36);
+  strip.fill(x, 37, 51);
+  strip.fill(y, 52, 59);
+  strip.show(); 
+  delay(500);
+}
