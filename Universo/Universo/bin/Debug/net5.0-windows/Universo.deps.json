@@ -1,0 +1,158 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "Universo/1.0.0": {
+        "dependencies": {
+          "Google.Events.Protobuf": "1.0.0",
+          "Google.Protobuf": "3.20.1",
+          "Google.Protobuf.Tools": "3.20.1",
+          "protobuf": "2.6.1.1"
+        },
+        "runtime": {
+          "Universo.dll": {}
+        }
+      },
+      "CloudNative.CloudEvents/2.0.0": {
+        "dependencies": {
+          "System.Memory": "4.5.4"
+        },
+        "runtime": {
+          "lib/netstandard2.0/CloudNative.CloudEvents.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        }
+      },
+      "CloudNative.CloudEvents.SystemTextJson/2.0.0": {
+        "dependencies": {
+          "CloudNative.CloudEvents": "2.0.0",
+          "System.Text.Json": "5.0.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/CloudNative.CloudEvents.SystemTextJson.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        }
+      },
+      "Google.Api.CommonProtos/2.3.0": {
+        "dependencies": {
+          "Google.Protobuf": "3.20.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Api.CommonProtos.dll": {
+            "assemblyVersion": "2.3.0.0",
+            "fileVersion": "2.3.0.0"
+          }
+        }
+      },
+      "Google.Events.Protobuf/1.0.0": {
+        "dependencies": {
+          "CloudNative.CloudEvents.SystemTextJson": "2.0.0",
+          "Google.Api.CommonProtos": "2.3.0",
+          "Google.Protobuf": "3.20.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Events.Protobuf.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Google.Protobuf/3.20.1": {
+        "runtime": {
+          "lib/net5.0/Google.Protobuf.dll": {
+            "assemblyVersion": "3.20.1.0",
+            "fileVersion": "3.20.1.0"
+          }
+        }
+      },
+      "Google.Protobuf.Tools/3.20.1": {},
+      "protobuf/2.6.1.1": {},
+      "System.Memory/4.5.4": {},
+      "System.Text.Json/5.0.2": {
+        "runtime": {
+          "lib/netcoreapp3.0/System.Text.Json.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.521.16609"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Universo/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "CloudNative.CloudEvents/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SLLdBLG0efOWQOv6VyC3HwDEbS6qJ4QBuirhjM3O//IknH9+OvLE6gKitiMQRoqwDVmX6Bm6WqAHUTtQSxYYKQ==",
+      "path": "cloudnative.cloudevents/2.0.0",
+      "hashPath": "cloudnative.cloudevents.2.0.0.nupkg.sha512"
+    },
+    "CloudNative.CloudEvents.SystemTextJson/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Efa4xnNJFXH/EpsGyo9feV/cvi5xWTtw8XbhrA8iQNt9lzF7auihcyDuzM2SK28jGKU4KCVbXXNFgGhEBrooqA==",
+      "path": "cloudnative.cloudevents.systemtextjson/2.0.0",
+      "hashPath": "cloudnative.cloudevents.systemtextjson.2.0.0.nupkg.sha512"
+    },
+    "Google.Api.CommonProtos/2.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+CKoDb9ZeZGb56MUb6I8hdkUmp2kLCycljv9FWOX5OfJeJ5WW3IaO26hCX1zKsXdxeXU14viC+WEuXhFgk807w==",
+      "path": "google.api.commonprotos/2.3.0",
+      "hashPath": "google.api.commonprotos.2.3.0.nupkg.sha512"
+    },
+    "Google.Events.Protobuf/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-sgrGOCEfPTZzhBksUVwTVf9pifdhEG78e5n3q3eNbQ7MzsBwCaO5JYIhAOcd1o9FqeLB/tjup0MJEIsQ9s2/Bw==",
+      "path": "google.events.protobuf/1.0.0",
+      "hashPath": "google.events.protobuf.1.0.0.nupkg.sha512"
+    },
+    "Google.Protobuf/3.20.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+DhU0ijnnAdaYR+4yFMwOZ4jNv29cFb4OxT/qeU0t9OOxZCBjEcl22kgrYwqVDZ6/BUegG7EE7ghyuaAvsXXUQ==",
+      "path": "google.protobuf/3.20.1",
+      "hashPath": "google.protobuf.3.20.1.nupkg.sha512"
+    },
+    "Google.Protobuf.Tools/3.20.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-tJ8jTkOt5v7AeuOX76q9I6LZzcxBQ5XQmXVSCviQdPXbVDBO0Jc1CrG2gbk5F3izpSL+Z97nmvzuNWfRQQQosw==",
+      "path": "google.protobuf.tools/3.20.1",
+      "hashPath": "google.protobuf.tools.3.20.1.nupkg.sha512"
+    },
+    "protobuf/2.6.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4nR8C+GWm3paVn9MczwpqxB3BcvTjqQv8QCxnrGRPh4S3Vnv/SdtVm2JzebUgxDbawIpPbUzrGOmxggh06pP2g==",
+      "path": "protobuf/2.6.1.1",
+      "hashPath": "protobuf.2.6.1.1.nupkg.sha512"
+    },
+    "System.Memory/4.5.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+      "path": "system.memory/4.5.4",
+      "hashPath": "system.memory.4.5.4.nupkg.sha512"
+    },
+    "System.Text.Json/5.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-I47dVIGiV6SfAyppphxqupertT/5oZkYLDCX6vC3HpOI4ZLjyoKAreUoem2ie6G0RbRuFrlqz/PcTQjfb2DOfQ==",
+      "path": "system.text.json/5.0.2",
+      "hashPath": "system.text.json.5.0.2.nupkg.sha512"
+    }
+  }
+}
