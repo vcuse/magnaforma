@@ -63,7 +63,7 @@ figure
  end
  %% Scale Rx and Ry between -45 and 45 degrees
  
- maxangle = 45;
+ maxangle = 10;
  values = [max(Rx) abs(min(Rx)) max(Ry) abs(min(Ry))];
  Max = max(values);
  scale = maxangle/Max;
