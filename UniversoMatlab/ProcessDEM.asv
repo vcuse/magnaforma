@@ -29,40 +29,7 @@ figure
  zlabel("zaxis")
  hold off
  
- %% Traverse Path
-%  pathx = 2;
-%  pathy=2;
-%  datasize = size(data)
-%  previous = 0;
-%  
-%  for i = 1:50
-%     direction = randi([1 3],1);
-%     if(((direction - previous) == -2) || ((direction - previous) == 2))
-%       direction = 3;
-%     end
-%       if((pathx+1) == datasize(2))
-%           break;
-%       elseif ((pathy-1) == 1)
-%           direction = 1;
-%       elseif ((pathy+1) == datasize(1))
-%           direction = 3;
-%       end
-% 
-%       if (direction == 3)
-%           pathy= pathy-1;
-%       elseif(direction ==2)
-%           pathx =pathx+1;
-%       elseif(direction ==1)
-%           pathy = pathy+1;
-%       end
-% 
-%     data(pathx,pathy)= 50;
-%         
-%     previous = direction; 
-%  end
-%  
-%  figure
-%  surf(X,Y,double(data))
+
  
 %% Compute Rotation 
  
@@ -72,31 +39,40 @@ figure
  myrow = 2;
  
  
- Rx = zeros([1 numCols]);
  Ry = zeros([1 numCols]);
+ Rx = zeros([1 numCols]);
  Depth = data(myrow,:);
  
  
  for i = 1:numCols
     vec = [nx(myrow,i),ny(myrow,i),nz(myrow,i)];
     if (vec(1) < 0)
-      Rx(i)=acosd(dot(vec,zaxis));
+      Ry(i)=acosd(dot(vec,zaxis));
     elseif (vec(1) > 0)
-      Rx(i)=-1*acosd(dot(vec,zaxis));
+      Ry(i)=-1*acosd(dot(vec,zaxis));
     elseif (vec(1) ==0)
-        Rx(i) = 0;
+        Ry(i) = 0;
     end
-    if(vec(2) <0)  %Ry is technically Rz on the graph, but is Ry for the robot
-      Ry(i) = -1*(180-acosd(dot(vec,yaxis)));
+    if(vec(2) <0)  %Rx is technically Rz on the graph, but is Rx for the robot
+      Rx(i) = -1*(180-acosd(dot(vec,yaxis)));
     elseif (vec(2)>0)
-      Ry(i) = acosd(dot(vec,yaxis)); 
+      Rx(i) = acosd(dot(vec,yaxis)); 
     elseif(vec(2)==0)
-      Ry(i) = 0;
+      Rx(i) = 0;
     end
+ end
+ 
+ %% Compute Rotation for longer distances
+ prev_z = data(myrow,1);
+ range = 10;
+ for i = range:range:numCols
+     cur_z = data(myrow,i);
+     hyp = cur_z-prev_z 
+     Ry(i) = acosd(range/hyp);
  end
  %% Scale Rx and Ry between -45 and 45 degrees
  
- maxangle = 45;
+ maxangle = 10;
  values = [max(Rx) abs(min(Rx)) max(Ry) abs(min(Ry))];
  Max = max(values);
  scale = maxangle/Max;
@@ -105,12 +81,12 @@ figure
  Ry = round(scale*Ry);
  
  
- Rotation = [Rx;Ry]';
+ Rotation = [Rx;Ry]'; 
  csvwrite('rotationvalues.csv',Rotation)
 
 %% Change Depth
 
-zrange = -50;
+%zrange = -50;
  
  %Depth = zrange*rescale(Depth);
  

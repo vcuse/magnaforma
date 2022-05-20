@@ -36,31 +36,41 @@ figure
  xaxis = [1 0 0];
  yaxis = [0 1 0];
  zaxis = [0 0 1];
- myrow = 2;
+  myrow = 2;
  
  
- Rx = zeros([1 numCols]);
  Ry = zeros([1 numCols]);
+ Rx = zeros([1 numCols]);
  Depth = data(myrow,:);
  
  
  for i = 1:numCols
     vec = [nx(myrow,i),ny(myrow,i),nz(myrow,i)];
     if (vec(1) < 0)
-      Rx(i)=acosd(dot(vec,zaxis));
+      Ry(i)=acosd(dot(vec,zaxis));
     elseif (vec(1) > 0)
-      Rx(i)=-1*acosd(dot(vec,zaxis));
+      Ry(i)=-1*acosd(dot(vec,zaxis));
     elseif (vec(1) ==0)
-        Rx(i) = 0;
+        Ry(i) = 0;
     end
-    if(vec(2) <0)  %Ry is technically Rz on the graph, but is Ry for the robot
-      Ry(i) = -1*(180-acosd(dot(vec,yaxis)));
+    if(vec(2) <0)  %Rx is technically Rz on the graph, but is Rx for the robot
+      Rx(i) = -1*(180-acosd(dot(vec,yaxis)));
     elseif (vec(2)>0)
-      Ry(i) = acosd(dot(vec,yaxis)); 
+      Rx(i) = acosd(dot(vec,yaxis)); 
     elseif(vec(2)==0)
-      Ry(i) = 0;
+      Rx(i) = 0;
     end
  end
+ 
+ %% Compute Rotation for longer distances
+%  prev_z = data(myrow,1);
+%  range = 8;
+%  for i = range:range:numCols
+%      cur_z = data(myrow,i);
+%      hyp = double((cur_z-prev_z))
+%      Ry = acosd(norm(range/hyp))
+%      prev_z = cur_z;
+%  end
  %% Scale Rx and Ry between -45 and 45 degrees
  
  maxangle = 10;
@@ -72,7 +82,7 @@ figure
  Ry = round(scale*Ry);
  
  
- Rotation = [Rx;Ry]';
+ Rotation = [Rx;Ry]'; 
  csvwrite('rotationvalues.csv',Rotation)
 
 %% Change Depth
