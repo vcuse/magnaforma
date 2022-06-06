@@ -386,23 +386,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\fronchettl\\.nuget\\packages\\": {},
+    "C:\\Users\\grazianige\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fronchettl\\source\\repos\\Universo\\Universo\\Universo.csproj",
+      "projectUniqueName": "C:\\Users\\grazianige\\Documents\\GitHub\\universo\\Universo\\Universo\\Universo.csproj",
       "projectName": "Universo",
-      "projectPath": "C:\\Users\\fronchettl\\source\\repos\\Universo\\Universo\\Universo.csproj",
-      "packagesPath": "C:\\Users\\fronchettl\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\fronchettl\\source\\repos\\Universo\\Universo\\obj\\",
+      "projectPath": "C:\\Users\\grazianige\\Documents\\GitHub\\universo\\Universo\\Universo\\Universo.csproj",
+      "packagesPath": "C:\\Users\\grazianige\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\grazianige\\Documents\\GitHub\\universo\\Universo\\Universo\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\fronchettl\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\grazianige\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -456,12 +456,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[5.0.15, 5.0.15]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
@@ -470,7 +464,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
       }
     }
   }

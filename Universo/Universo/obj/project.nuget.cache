@@ -1,19 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "QlEAk4Jfd89Y90KBl9zWEcT90JPrdg3JFHhkv6ATehutEVtVe5eMY3p9xqQ9KCbXAJLtqC6RSxECN3TgU/BvFg==",
+  "dgSpecHash": "iCMirqaqYJQv1yyapAeEhSA6+09tw4HAP/bVSAlpcTIeQNEl4fBnWajo0115x1dhllbpM+/FqHIQOZRe+7TrYg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\fronchettl\\source\\repos\\Universo\\Universo\\Universo.csproj",
+  "projectFilePath": "C:\\Users\\grazianige\\Documents\\GitHub\\universo\\Universo\\Universo\\Universo.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\fronchettl\\.nuget\\packages\\cloudnative.cloudevents\\2.0.0\\cloudnative.cloudevents.2.0.0.nupkg.sha512",
-    "C:\\Users\\fronchettl\\.nuget\\packages\\cloudnative.cloudevents.systemtextjson\\2.0.0\\cloudnative.cloudevents.systemtextjson.2.0.0.nupkg.sha512",
-    "C:\\Users\\fronchettl\\.nuget\\packages\\google.api.commonprotos\\2.3.0\\google.api.commonprotos.2.3.0.nupkg.sha512",
-    "C:\\Users\\fronchettl\\.nuget\\packages\\google.events.protobuf\\1.0.0\\google.events.protobuf.1.0.0.nupkg.sha512",
-    "C:\\Users\\fronchettl\\.nuget\\packages\\google.protobuf\\3.20.1\\google.protobuf.3.20.1.nupkg.sha512",
-    "C:\\Users\\fronchettl\\.nuget\\packages\\google.protobuf.tools\\3.20.1\\google.protobuf.tools.3.20.1.nupkg.sha512",
-    "C:\\Users\\fronchettl\\.nuget\\packages\\protobuf\\2.6.1.1\\protobuf.2.6.1.1.nupkg.sha512",
-    "C:\\Users\\fronchettl\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
-    "C:\\Users\\fronchettl\\.nuget\\packages\\system.text.json\\5.0.2\\system.text.json.5.0.2.nupkg.sha512",
-    "C:\\Users\\fronchettl\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.15\\microsoft.netcore.app.host.win-x64.5.0.15.nupkg.sha512"
+    "C:\\Users\\grazianige\\.nuget\\packages\\cloudnative.cloudevents\\2.0.0\\cloudnative.cloudevents.2.0.0.nupkg.sha512",
+    "C:\\Users\\grazianige\\.nuget\\packages\\cloudnative.cloudevents.systemtextjson\\2.0.0\\cloudnative.cloudevents.systemtextjson.2.0.0.nupkg.sha512",
+    "C:\\Users\\grazianige\\.nuget\\packages\\google.api.commonprotos\\2.3.0\\google.api.commonprotos.2.3.0.nupkg.sha512",
+    "C:\\Users\\grazianige\\.nuget\\packages\\google.events.protobuf\\1.0.0\\google.events.protobuf.1.0.0.nupkg.sha512",
+    "C:\\Users\\grazianige\\.nuget\\packages\\google.protobuf\\3.20.1\\google.protobuf.3.20.1.nupkg.sha512",
+    "C:\\Users\\grazianige\\.nuget\\packages\\google.protobuf.tools\\3.20.1\\google.protobuf.tools.3.20.1.nupkg.sha512",
+    "C:\\Users\\grazianige\\.nuget\\packages\\protobuf\\2.6.1.1\\protobuf.2.6.1.1.nupkg.sha512",
+    "C:\\Users\\grazianige\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
+    "C:\\Users\\grazianige\\.nuget\\packages\\system.text.json\\5.0.2\\system.text.json.5.0.2.nupkg.sha512"
   ],
   "logs": []
 }
