@@ -9,7 +9,7 @@ clc, clear, close all, clear variables;
 
 olddata = imread("marscyl2.tif");
 figure;
-data = olddata(509:512,700:739);%6000:511
+data = olddata(400:403,300:360);%6000:511
 imshow(data); 
 [numRows,numCols] = size(data);
 
@@ -38,7 +38,6 @@ figure
  zaxis = [0 0 1];
  myrow = 2;
  
- 
  Ry = zeros([1 numCols]);
  Rx = zeros([1 numCols]);
  Depth = data(myrow,:);
@@ -62,17 +61,65 @@ figure
     end
  end
  
- %% Compute Rotation for longer distances
- prev_z = data(myrow,1);
- range = 10;
- for i = range:range:numCols
-     cur_z = data(myrow,i);
-     hyp = cur_z-prev_z 
-     Ry(i) = acosd(range/hyp);
- end
- %% Scale Rx and Ry between -45 and 45 degrees
+
+
+%% Compute Rotation for longer distance by averaging
+
+% startrange = 1;
+% range = 3;
+% newCols = floor(numCols/range);
+% Ry_avg = zeros([1 newCols]);
+% Rx_avg = zeros([1 newCols]);
+% 
+% for i = range:range:numCols
+%     index = i/range;
+%     Ry_avg(index) = mean(Ry(startrange:i));
+%     Rx_avg(index) = mean(Rx(startrange:i));
+%     startrange = startrange + range;
+% end 
  
- maxangle = 10;
+
+%% Change Depth
+
+%adj determines the scale of the adjacent side of the triangle...this can
+%be used to increase or decrease the value of delta Z and can be any
+%number.
+
+ adj = 5;
+ delta_Z = zeros([1 numCols]);
+ delta_Z(1) = 0;
+ 
+ %calculate delta Z from Ry value 
+ for i = 2:numCols
+ delta_Z(i) = adj*tand(Ry(i-1));
+ end
+ 
+ %Compute maximum and minimum Z displacement
+ sum = zeros([1 numCols]);
+ sum(1) = delta_Z(1);
+ for i = 2:numCols
+     sum(i) = delta_Z(i)+sum(i-1); 
+ end
+ 
+ Zmax = max(sum);
+ Zmin = min(sum);
+ 
+ 
+%Rescale the maximum and minimum Z displacement 
+scaledsum = 500*rescale(sum);
+new_deltaZ = zeros([1 numCols]);
+new_deltaZ(1) = delta_Z(1);
+
+%Reinterpret delta Z in terms of 
+for i = 2:numCols
+   new_deltaZ(i) = scaledsum(i)-scaledsum(i-1);
+end
+
+ 
+ 
+  %% Scale Rx and Ry between - maxangle and + maxangle degrees
+ 
+ maxangle = 20;
  values = [max(Rx) abs(min(Rx)) max(Ry) abs(min(Ry))];
  Max = max(values);
  scale = maxangle/Max;
@@ -81,19 +128,25 @@ figure
  Ry = round(scale*Ry);
  
  
- Rotation = [Rx;Ry]'; 
- csvwrite('rotationvalues.csv',Rotation)
+ Rotation = [Rx;Ry;Z]'; 
+ csvwrite('rotationvalues.csv',Rotation) %first column is Rx (Roll), second column is Ry (Pitch)
+ 
+ 
 
-%% Change Depth
+%% Extra Code 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %% Compute Rotation for longer distances by scanning (only works for Ry atm)
 
-%zrange = -50;
- 
- %Depth = zrange*rescale(Depth);
- 
- 
- %or
- %length_object = 6;
- %riseZ = sind(Rx)*length_object;
- 
- 
- 
+%  myrow = 2;
+%  prev_z = data(myrow,1);
+%  range = 5;
+%  RyCols = floor(numCols/range);
+%  Ry_avg = zeros([1 RyCols]);
+%  
+%  for i = range:range:numCols
+%      cur_z = data(myrow,i);
+%      Ryindex = i/range;
+%      opp = double(cur_z)-double(prev_z);
+%      Ry_avg(Ryindex) = atand(opp/range);
+%      prev_z = cur_z;
+%  end
