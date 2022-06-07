@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SystemProperties>
+  <SystemName>CRB15000_5_95</SystemName>
+  <SerialNo>VIRTUAL_CONTROLLER</SerialNo>
+  <UsedMedia>
+    <Media path="C:/Users/grazianige/AppData/Local/ABB/RobotWare/RobotControl_7.3.1" name="RobotControl" version="7.3.1+122" versionName="7.3.1"/>
+    <Media path="C:/Users/grazianige/AppData/Local/ABB/RobotWare/RobotOS_3.1.0" name="RobotOS" version="3.1.0+0" versionName="3.1.0"/>
+    <Media path="C:/Users/grazianige/AppData/Local/ABB/RobotWare/Robots_1.3.1" name="Robots" version="1.3.1+61" versionName="1.3.1"/>
+  </UsedMedia>
+  <ControlModule>
+    <Option descr="RobotControl Base"/>
+    <Option descr="English"/>
+    <Option descr="3120-1 FlexPendant Limited App Package"/>
+    <Option descr="3120-2 FlexPendant Essential App Package"/>
+    <Option descr="3151-1 FlexPendant Program Package"/>
+    <Option descr="Leadthrough"/>
+    <Option descr="3043-3 SafeMove Collaborative"/>
+    <Option descr="Safe Move Plug and Play"/>
+    <Option descr="No Category 0"/>
+  </ControlModule>
+  <DriveModule>
+    <Name>Robot1</Name>
+    <Option descr="Drive System CRB 15000"/>
+  </DriveModule>
+  <AdditionalOption>
+    <Name>Robots</Name>
+    <Option descr="CRB 15000-5/0.95"/>
+  </AdditionalOption>
+</SystemProperties>

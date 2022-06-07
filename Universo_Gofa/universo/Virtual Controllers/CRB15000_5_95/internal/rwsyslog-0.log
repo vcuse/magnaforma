@@ -1,0 +1,25 @@
+<9>Jun  6 10:30:40 CRB15000_5_95 ABB-UAL:01:Security log file deleted by user|-|syslog.log not found|3420|00001|-|robot|syslog	1
+<13>Jun  6 10:30:42 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=65537|1110|00002|-|robot|NativeUser	2
+<13>Jun  6 10:30:42 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=131074|1110|00003|-|robot|NativeUser	3
+<13>Jun  6 10:30:43 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=196611|1110|00004|-|robot|NativeUser	4
+<13>Jun  6 10:30:44 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=262148|1110|00005|-|robot|NativeUser	5
+<13>Jun  6 10:30:44 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=327685|1110|00006|-|robot|NativeUser	6
+<13>Jun  6 10:30:44 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=393222|1110|00007|-|robot|NativeUser	7
+<13>Jun  6 10:30:46 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=458759|1110|00008|-|robot|Admin	8
+<13>Jun  6 10:30:54 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=524296|1110|00009|-|robot|Admin	9
+<13>Jun  6 10:36:54 CRB15000_5_95 ABB-UAL:01:Log-out (user logged out)|-|UAS_UID=524296|1210|00010|-|robot|	10
+<13>Jun  6 10:49:23 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=589832|1110|00011|-|robot|NativeUser	11
+<13>Jun  6 11:02:58 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=655369|1110|00012|-|robot|Admin	12
+<13>Jun  6 11:03:13 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=65537|1110|00013|-|robot|NativeUser	13
+<13>Jun  6 11:03:14 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=131074|1110|00014|-|robot|NativeUser	14
+<13>Jun  6 11:03:14 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=196611|1110|00015|-|robot|NativeUser	15
+<13>Jun  6 11:03:14 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=262148|1110|00016|-|robot|NativeUser	16
+<13>Jun  6 11:03:14 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=327685|1110|00017|-|robot|NativeUser	17
+<13>Jun  6 11:03:14 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=393222|1110|00018|-|robot|NativeUser	18
+<13>Jun  6 11:03:17 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=458759|1110|00019|-|robot|Admin	19
+<13>Jun  6 11:03:25 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=524296|1110|00020|-|robot|Admin	20
+<13>Jun  6 11:09:25 CRB15000_5_95 ABB-UAL:01:Log-out (user logged out)|-|UAS_UID=524296|1210|00021|-|robot|	21
+<13>Jun  6 12:18:54 CRB15000_5_95 ABB-UAL:01:Log-in successful|-|UAS_UID=589832|1110|00022|-|robot|Admin	22
+-----BEGIN DIGEST-----
+ayZPedE7UMgjcIc+L3dlTNLrXo3aoxAHZO/8qX9AOAeER9BiYtaAdC3+AWtBo/SxYGjSmA==
+-----END DIGEST-----

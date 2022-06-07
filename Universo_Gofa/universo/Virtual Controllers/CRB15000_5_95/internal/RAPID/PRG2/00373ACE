@@ -1,0 +1,85 @@
+MODULE Module1
+    VAR robtarget starting_robot_position;
+
+    ! # Main Cycle 
+    PROC main()
+        ! # Using RAPID
+        starting_robot_position := CRobT(\Tool:=tool0\wobj:=wobj0);
+        RAPID_CARTESIAN_MOVE;
+    ENDPROC
+    
+    PROC RAPID_CARTESIAN_MOVE()
+        VAR robtarget current_robot_position;
+        current_robot_position := starting_robot_position;
+        ! MoveJ RelTool (currentPosition, 100, 0, 0), v100, fine, tool0; ! Translate 100 mm on the x axis
+        ! MoveJ RelTool (currentPosition, 0, 0, 0 \Rx:=0, \Ry:=10, \Rz:=0), ! Rotate 10 degrees in the y axis
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=-19, \Ry:=-10, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, -3.0951 \Rx:=-19, \Ry:=10, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 3.0951 \Rx:=-14, \Ry:=14, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 4.8938 \Rx:=-13, \Ry:=0, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=-14, \Ry:=-14, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, -4.8938 \Rx:=0, \Ry:=-8, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, -2.1886 \Rx:=0, \Ry:=0, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=0, \Ry:=0, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=0, \Ry:=0, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=0, \Ry:=8, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 2.1886 \Rx:=0, \Ry:=8, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 2.1886 \Rx:=18, \Ry:=0, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=19, \Ry:=10, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 3.0951 \Rx:=-19, \Ry:=10, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 3.0951 \Rx:=0, \Ry:=8, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 2.1886 \Rx:=0, \Ry:=8, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 2.1886 \Rx:=0, \Ry:=0, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=0, \Ry:=0, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=19, \Ry:=10, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 3.0951 \Rx:=0, \Ry:=13, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 4.3771 \Rx:=0, \Ry:=0, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=19, \Ry:=-10, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, -3.0951 \Rx:=19, \Ry:=10, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 3.0951 \Rx:=0, \Ry:=13, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 4.3771 \Rx:=-20, \Ry:=14, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 4.8938 \Rx:=-19, \Ry:=10, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 3.0951 \Rx:=0, \Ry:=8, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 2.1886 \Rx:=0, \Ry:=8, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 2.1886 \Rx:=0, \Ry:=13, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 4.3771 \Rx:=-16, \Ry:=16, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 6.1902 \Rx:=-18, \Ry:=0, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=-19, \Ry:=10, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 3.0951 \Rx:=-14, \Ry:=14, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 4.8938 \Rx:=-19, \Ry:=10, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 3.0951 \Rx:=-19, \Ry:=10, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 3.0951 \Rx:=0, \Ry:=0, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=-19, \Ry:=10, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 3.0951 \Rx:=0, \Ry:=8, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 2.1886 \Rx:=0, \Ry:=0, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=-18, \Ry:=0, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=-18, \Ry:=0, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=-19, \Ry:=10, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 3.0951 \Rx:=-20, \Ry:=14, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 4.8938 \Rx:=-16, \Ry:=16, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 6.1902 \Rx:=-14, \Ry:=-14, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, -4.8938 \Rx:=-20, \Ry:=-14, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, -4.8938 \Rx:=0, \Ry:=0, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=0, \Ry:=0, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=0, \Ry:=8, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 2.1886 \Rx:=0, \Ry:=13, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 4.3771 \Rx:=-19, \Ry:=10, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 3.0951 \Rx:=-19, \Ry:=10, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 3.0951 \Rx:=0, \Ry:=8, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 2.1886 \Rx:=-18, \Ry:=0, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=-19, \Ry:=10, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 3.0951 \Rx:=-19, \Ry:=10, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 3.0951 \Rx:=0, \Ry:=0, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=0, \Ry:=0, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 0 \Rx:=0, \Ry:=8, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 2.1886 \Rx:=0, \Ry:=8, \Rz:=0), v10, fine, tool0;
+        MoveJ RelTool (current_robot_position, 0, 0, 2.1886 \Rx:=0, \Ry:=-8, \Rz:=0), v10, fine, tool0;
+        
+        MoveL starting_robot_position, v100, fine, tool0;
+        MoveL RelTool (current_robot_position, 100, 0, 0 \Rx:=0, \Ry:=0, \Rz:=0), v100, fine, tool0;
+        MoveL starting_robot_position, v100, fine, tool0;
+        MoveL RelTool (current_robot_position, -100, 0, 0 \Rx:=0, \Ry:=0, \Rz:=0), v100, fine, tool0;
+    ENDPROC
+    
+    ! # Externally Guided motion (EGM) - Cartesian Control 
+ENDMODULE

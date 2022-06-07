@@ -1,0 +1,44 @@
+#
+# Generated backup file, do not edit.
+#
+# Originally at: C:/Users/grazianige/Documents/GitHub/universo/Universo_Gofa/universo/Virtual Controllers/CRB15000_5_95/TEMP/backup.271068
+# 2022-06-06  11:02:57
+#
+>>SYSTEM_ID:
+VIRTUAL_CONTROLLER
+
+>>PRODUCTS_ID:
+RobotControl Version: 7.3.1
+RobotOS Version: 3.1.0
+Robots Version: 1.3.1
+
+  RobotControl Base
+  English
+  3120-1 FlexPendant Limited App Package
+  3120-2 FlexPendant Essential App Package
+  3151-1 FlexPendant Program Package
+  Leadthrough
+  3043-3 SafeMove Collaborative
+  Safe Move Plug and Play
+  No Category 0
+  Drive System CRB 15000
+  CRB 15000-5/0.95
+
+>>HOME:
+All public files and directories
+
+>>SYSPAR:
+SYS.cfg
+SIO.cfg
+PROC.cfg
+MMC.cfg
+MOC.cfg
+EIO.cfg
+
+
+
+>>TASK2: (T_ROB1,module1,)
+PROGMOD/Module1.modx @ 
+
+
+>>EOF:

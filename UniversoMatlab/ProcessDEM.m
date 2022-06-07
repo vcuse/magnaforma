@@ -85,7 +85,7 @@ figure
 %be used to increase or decrease the value of delta Z and can be any
 %number.
 
- adj = 279;
+ adj = 5;
  delta_Z = zeros([1 numCols]);
  delta_Z(1) = 0;
  
@@ -96,7 +96,7 @@ figure
  
  %Compute maximum and minimum Z displacement
  sum = zeros([1 numCols]);
- sum(1) = 587.98;
+ sum(1) = 1166;
  for i = 2:numCols
      sum(i) = delta_Z(i)+sum(i-1); 
  end
@@ -105,31 +105,21 @@ figure
  Zmin = min(sum);
 %  
 %  
-% %Rescale the maximum and minimum Z displacement 
-scaledsum = 100*rescale(sum)+588;
-new_deltaZ = zeros([1 numCols]);
-new_deltaZ(1) = delta_Z(1);
-
-%Reinterpret delta Z in terms of 
-for i = 2:numCols
-   new_deltaZ(i) = scaledsum(i)-scaledsum(i-1);
-end
-
-%new_deltaZ = delta_Z;
+totaldelta = 3*round(sum-sum(1));
  
  
   %% Scale Rx and Ry between - maxangle and + maxangle degrees
  
- maxangle = 20;
+ maxangle = 15;
  values = [max(Rx) abs(min(Rx)) max(Ry) abs(min(Ry))];
  Max = max(values);
  scale = maxangle/Max;
 
  Rx = round(scale*Rx);
- Ry = round(scale*Ry);
+ Ry = -1*round(scale*Ry);
+
  
- 
- Rotation = [Rx;Ry;new_deltaZ]'; 
+ Rotation = [Rx;Ry;totaldelta]'; 
  csvwrite('rotationvalues.csv',Rotation) %first column is Rx (Roll), second column is Ry (Pitch)
  
  
