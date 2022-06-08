@@ -60,7 +60,6 @@ figure
       Rx(i) = 0;
     end
  end
- 
 
 
 %% Compute Rotation for longer distance by averaging
@@ -68,13 +67,13 @@ figure
 % startrange = 1;
 % range = 3;
 % newCols = floor(numCols/range);
-% Ry_avg = zeros([1 newCols]);
-% Rx_avg = zeros([1 newCols]);
+% Ry = zeros([1 newCols]);
+% Rx = zeros([1 newCols]);
 % 
 % for i = range:range:numCols
 %     index = i/range;
-%     Ry_avg(index) = mean(Ry(startrange:i));
-%     Rx_avg(index) = mean(Rx(startrange:i));
+%     Ry(index) = mean(Ry(startrange:i));
+%     Rx(index) = mean(Rx(startrange:i));
 %     startrange = startrange + range;
 % end 
  
@@ -94,7 +93,8 @@ figure
  delta_Z(i) = adj*tand(Ry(i-1));
  end
  
- %Compute maximum and minimum Z displacement
+ 
+%Compute maximum and minimum Z displacement
  sum = zeros([1 numCols]);
  sum(1) = 1166;
  for i = 2:numCols
@@ -103,24 +103,43 @@ figure
  
  Zmax = max(sum);
  Zmin = min(sum);
-%  
-%  
-totaldelta = 3*round(sum-sum(1));
+
+% Stretch Z displacement
+
+sum = 1000*rescale(sum)+500;
+
+newZ= zeros([1 numCols]);
+newZ(1) = 1166;
+
+for i = 2:numCols
+    
+end
  
  
   %% Scale Rx and Ry between - maxangle and + maxangle degrees
  
- maxangle = 15;
+ maxangle = 20;
  values = [max(Rx) abs(min(Rx)) max(Ry) abs(min(Ry))];
  Max = max(values);
  scale = maxangle/Max;
-
- Rx = round(scale*Rx);
- Ry = -1*round(scale*Ry);
+ Rx = -1*round(scale*Rx);
+ Ry = round(scale*Ry);
+ 
+ deltaRx = zeros([1 numCols]);
+ deltaRy = zeros([1 numCols]);
+ deltaRx(1) = Rx(1);
+ deltaRy(1) = Ry(1);
+  for i = 2:numCols
+    deltaRx(i) = Rx(i)-Rx(i-1);
+    deltaRy(i) = Ry(i)-Ry(i-1);
+  end
+ deltaRy = -1*deltaRy;
+ delta_Z = 3*delta_Z;
+ 
 
  
- Rotation = [Rx;Ry;totaldelta]'; 
- csvwrite('rotationvalues.csv',Rotation) %first column is Rx (Roll), second column is Ry (Pitch)
+ mycsv = [deltaRx;deltaRy; delta_Z]'; 
+ csvwrite('rotationvalues.csv',mycsv) %first column is Rx (Roll), second column is Ry (Pitch)
  
  
 
