@@ -36,7 +36,7 @@ figure
  surf(X,Y,double(data))
  view(3)
  hold on
- quiver3(X,Y,double(data),nx,ny,nz)
+ %quiver3(X,Y,double(data),nx,ny,nz)
  axis equal
  grid minor
  xlabel("xaxis - columns")
