@@ -30,10 +30,11 @@ mypath = round(20*sin(x));
 
 %% Display Surface with normal vectors
 %data= smooth(0.5*data); %scaling for different .tif 
-figure
+ figure
  [X,Y] = meshgrid(1:numCols,1:numRows);
  [nx, ny,nz]= surfnorm(double(data));
- surf(X,Y,double(data))
+ mars = surf(X,Y,double(data))
+ mars.EdgeAlpha = 0.1;
  view(3)
  hold on
  %quiver3(X,Y,double(data),nx,ny,nz)
