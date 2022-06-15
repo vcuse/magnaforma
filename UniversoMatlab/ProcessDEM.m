@@ -34,7 +34,7 @@ mypath = round(10*sin(x));
  [X,Y] = meshgrid(1:numCols,1:numRows);
  [nx, ny,nz]= surfnorm(double(data));
  mars = surf(X,Y,double(data))
- mars.EdgeAlpha = 0.1;
+ mars.EdgeColor = 'none';
  view(3)
  hold on
  %quiver3(X,Y,double(data),nx,ny,nz)
