@@ -9,9 +9,24 @@ clc, clear, close all, clear variables;
 
 olddata = imread("marscyl2.tif");
 figure;
-data = olddata(400:403,300:360);%6000:511
+data = olddata(400:500,400:1000);%6000:511
 imshow(data); 
 [numRows,numCols] = size(data);
+
+
+
+
+%% Path and Delta Y
+
+myrow = 50;
+
+
+
+x = linspace(0,5,numCols);
+mypath = round(20*sin(x));
+
+
+
 
 %% Display Surface with normal vectors
 %data= smooth(0.5*data); %scaling for different .tif 
@@ -36,15 +51,22 @@ figure
  xaxis = [1 0 0];
  yaxis = [0 1 0];
  zaxis = [0 0 1];
- myrow = 2;
  
  Ry = zeros([1 numCols]);
  Rx = zeros([1 numCols]);
- Depth = data(myrow,:);
+  
+ 
+ %create and fill normal matrix according to path
+ normal = zeros([numCols 3]);
+ normal(1,:) = [nx(myrow,1),ny(myrow,1),nz(myrow,1)];
+ 
+ for i = 2:numCols
+     normal(i,:) = [nx(myrow+mypath(i),i),ny(myrow+mypath(i),i),nz(myrow+mypath(i),i)];
+end
  
  
  for i = 1:numCols
-    vec = [nx(myrow,i),ny(myrow,i),nz(myrow,i)];
+    vec = normal(i,:);
     if (vec(1) < 0)
       Ry(i)=acosd(dot(vec,zaxis));
     elseif (vec(1) > 0)
@@ -61,7 +83,8 @@ figure
     end
  end
 
-
+ 
+ 
 %% Compute Rotation for longer distance by averaging
 
 % startrange = 1;
@@ -78,7 +101,7 @@ figure
 % end 
  
 
-%% Change Depth
+%% Delta Z
 
 %adj determines the scale of the adjacent side of the triangle...this can
 %be used to increase or decrease the value of delta Z and can be any
@@ -86,17 +109,20 @@ figure
 
  adj = 5;
  delta_Z = zeros([1 numCols]);
- delta_Z(1) = 0;
+ delta_Z(1) = double(data(1));
+ startingZ = 1122;
  
  %calculate delta Z from Ry value 
  for i = 2:numCols
  delta_Z(i) = adj*tand(Ry(i-1));
  end
  
+
  
 %Compute maximum and minimum Z displacement
  sum = zeros([1 numCols]);
- sum(1) = 1166;
+ sum(1) = startingZ; %starting Z
+ 
  for i = 2:numCols
      sum(i) = delta_Z(i)+sum(i-1); 
  end
@@ -106,57 +132,84 @@ figure
 
 % Stretch Z displacement
 
-sum = 1000*rescale(sum)+500;
+sum = 800*rescale(sum)+500;
 
-newZ= zeros([1 numCols]);
-newZ(1) = 1166;
+%Plot noisy and filtered data
+figure;
+plot(1:numCols,sum);
+hold on;
+plot(1:numCols,smoothdata(sum,'gaussian',50));
 
-for i = 2:numCols
-    
-end
- 
- 
-  %% Scale Rx and Ry between - maxangle and + maxangle degrees
- 
- maxangle = 20;
- values = [max(Rx) abs(min(Rx)) max(Ry) abs(min(Ry))];
- Max = max(values);
- scale = maxangle/Max;
- Rx = -1*round(scale*Rx);
- Ry = round(scale*Ry);
- 
- deltaRx = zeros([1 numCols]);
- deltaRy = zeros([1 numCols]);
- deltaRx(1) = Rx(1);
- deltaRy(1) = Ry(1);
-  for i = 2:numCols
-    deltaRx(i) = Rx(i)-Rx(i-1);
-    deltaRy(i) = Ry(i)-Ry(i-1);
-  end
- deltaRy = -1*deltaRy;
- delta_Z = 3*delta_Z;
- 
 
+sum = round(smoothdata(sum,'gaussian',50));
+
+newdelta_Z = sum-startingZ;
  
- mycsv = [deltaRx;deltaRy; delta_Z]'; 
+  %% Scale Rx and Ry between - maxangle and + maxangle degrees and smooth
+ 
+ maxangleX = 25;
+ maxangleY = 45;
+ valuesX = [max(Rx) abs(min(Rx))];
+ valuesY = [max(Ry) abs(min(Ry))];
+ Max = [max(valuesX) max(valuesY)];
+ 
+ scaleX = maxangleX/Max(1);
+ scaleY = maxangleY/Max(2);
+ Rx = -1*round(scaleX*Rx);
+ Ry = round(scaleY*Ry);
+ 
+ %smoothdata
+ Rx = round(smoothdata(Rx,'gaussian',50),1);
+ Ry = -3*round(smoothdata(Ry,'gaussian',80),1);
+ 
+ 
+ 
+ delta_Y = 20*round(smoothdata(mypath,'gaussian',20),1);
+ plot(1:numCols,delta_Y);
+ hold off;
+ 
+ figure;
+ plot(1:numCols,Ry);
+ hold on;
+ plot(1:numCols,Rx);
+ hold off;
+ 
+%% Delta X
+
+startingX = 1555;
+
+moveX = 400*rescale(Ry)+1500;
+
+moveX = round(smoothdata(moveX,'gaussian',20));
+
+delta_X = moveX-startingX;
+
+
+%% Find extent of Ry 
+
+
+% height = 200:1100;
+% RyRx_Range = 0.00002*height.^2+0.0695*height-17.164;
+% 
+% for i = 1:numCols
+%     if(sum(i)<=1100)
+%        % index = find(height == sum(i));
+%         if(Ry(i)>(-0.00002*sum(i).^2+0.0695*sum(i)-17.164))
+%             Ry(i) = (-0.00002*sum(i).^2+0.0695*sum(i)-17.164);
+%             disp('hello')
+%             
+%         end
+%         if(Rx(i)>(-0.00002*sum(i).^2+0.0695*sum(i)-17.164))
+%             Rx(i) = (-0.00002*sum(i).^2+0.0695*sum(i)-17.164);
+%         end
+%     end
+% end
+
+
+
+
+%% Create CSV File
+ mycsv = [Rx;Ry; delta_X;delta_Y;newdelta_Z]';
  csvwrite('rotationvalues.csv',mycsv) %first column is Rx (Roll), second column is Ry (Pitch)
  
  
-
-%% Extra Code 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- %% Compute Rotation for longer distances by scanning (only works for Ry atm)
-
-%  myrow = 2;
-%  prev_z = data(myrow,1);
-%  range = 5;
-%  RyCols = floor(numCols/range);
-%  Ry_avg = zeros([1 RyCols]);
-%  
-%  for i = range:range:numCols
-%      cur_z = data(myrow,i);
-%      Ryindex = i/range;
-%      opp = double(cur_z)-double(prev_z);
-%      Ry_avg(Ryindex) = atand(opp/range);
-%      prev_z = cur_z;
-%  end
