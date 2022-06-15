@@ -9,7 +9,7 @@ clc, clear, close all, clear variables;
 
 olddata = imread("marscyl2.tif");
 figure;
-data = olddata(400:500,400:1000);%6000:511
+data = olddata(400:500,1:3000);%6000:511
 imshow(data); 
 [numRows,numCols] = size(data);
 
@@ -23,7 +23,7 @@ myrow = 50;
 
 
 x = linspace(0,5,numCols);
-mypath = round(20*sin(x));
+mypath = round(10*sin(x));
 
 
 
@@ -133,7 +133,7 @@ end
 
 % Stretch Z displacement
 
-sum = 800*rescale(sum)+500;
+sum = 900*rescale(sum)+500;
 
 %Plot noisy and filtered data
 figure;
@@ -165,7 +165,7 @@ newdelta_Z = sum-startingZ;
  
  
  
- delta_Y = 20*round(smoothdata(mypath,'gaussian',20),1);
+ delta_Y = round(smoothdata(30*mypath,'gaussian',80),1);
  plot(1:numCols,delta_Y);
  hold off;
  
@@ -181,7 +181,7 @@ startingX = 1555;
 
 moveX = 400*rescale(Ry)+1500;
 
-moveX = round(smoothdata(moveX,'gaussian',20));
+moveX = round(smoothdata(moveX,'gaussian',10));
 
 delta_X = moveX-startingX;
 

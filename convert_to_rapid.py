@@ -1,7 +1,7 @@
 import csv
 
 def export_to_rapid(x, y, z, rX, rY, rZ):
-    move_joint = "MoveJ RelTool (starting_position, {}, {}, {} \Rx:={}, \Ry:={}, \Rz:={}), v400, z1, Tooldata_7;\n".format(x, y, z, rX, rY, rZ)
+    move_joint = "MoveJ RelTool (starting_position, {}, {}, {} \Rx:={}, \Ry:={}, \Rz:={}), v200, z200, Tooldata_7;\n".format(x, y, z, rX, rY, rZ)
 
 
     with open('C:\\Users\\grazianige\\Documents\\GitHub\\universo\\rapid_code.txt', 'a') as movement_file:
