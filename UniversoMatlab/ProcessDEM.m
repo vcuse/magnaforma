@@ -9,7 +9,7 @@ clc, clear, close all, clear variables;
 
 olddata = imread("marscyl2.tif");
 figure;
-data = olddata(400:500,1:3000);%6000:511
+data = olddata(400:500,1:2000);%6000:511
 imshow(data); 
 [numRows,numCols] = size(data);
 
@@ -23,7 +23,7 @@ myrow = 50;
 
 
 x = linspace(0,5,numCols);
-mypath = round(10*sin(x));
+mypath = round(25*sin(2*x));
 
 
 
@@ -111,7 +111,7 @@ end
  adj = 5;
  delta_Z = zeros([1 numCols]);
  delta_Z(1) = double(data(1));
- startingZ = 1122;
+ startingZ = 865;
  
  %calculate delta Z from Ry value 
  for i = 2:numCols
@@ -133,7 +133,7 @@ end
 
 % Stretch Z displacement
 
-sum = 900*rescale(sum)+500;
+sum = 900*rescale(sum);
 
 %Plot noisy and filtered data
 figure;
@@ -156,16 +156,16 @@ newdelta_Z = sum-startingZ;
  
  scaleX = maxangleX/Max(1);
  scaleY = maxangleY/Max(2);
- Rx = -1*round(scaleX*Rx);
+ Rx = round(scaleX*Rx);
  Ry = round(scaleY*Ry);
  
  %smoothdata
- Rx = round(smoothdata(Rx,'gaussian',50),1);
- Ry = -3*round(smoothdata(Ry,'gaussian',80),1);
+ Rx = round(smoothdata(Rx,'gaussian',150),1);
+ Ry = round(smoothdata(-3*Ry,'gaussian',150),1);
  
  
  
- delta_Y = round(smoothdata(30*mypath,'gaussian',80),1);
+ delta_Y = round(smoothdata(mypath,'gaussian',80),1);
  plot(1:numCols,delta_Y);
  hold off;
  
@@ -177,9 +177,9 @@ newdelta_Z = sum-startingZ;
  
 %% Delta X
 
-startingX = 1555;
+startingX = 865;
 
-moveX = 400*rescale(Ry)+1500;
+moveX = 450*rescale(Ry)+750;
 
 moveX = round(smoothdata(moveX,'gaussian',10));
 
