@@ -14,4 +14,4 @@ source_data = csv.reader(source_file)
 
 for row in source_data:
     rX, rY,X,Y,Z = row[0], row[1], row[2],row[3],row[4]
-    export_to_rapid(X, 0, Z, rX, rY, 0)
+    export_to_rapid(X, Y, Z, rX, rY, 0)
