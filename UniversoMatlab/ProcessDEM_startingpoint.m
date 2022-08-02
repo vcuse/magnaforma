@@ -1,31 +1,48 @@
 clc, clear, close all, clear variables;
 
+%% Universo Control Code
+%Authored by: Gabriella Graziani
+%Summer 2022
+
 %% Process DEM
 % This code aims to plot the surface of a DEM and find the rotation values of the surface planes
 % in addition, these values are translated onto a scale that can be used
 % for robotic movement
     
 %% Import Data
+%input data from .tif file labeled in the imread() function
+%select range of larger data file to use
+%output image of selected data and measure its size
 
 import_data = imread("marscyl2.tif");
 figure;
-data = import_data(400:500,1:3000);%6000:511
+data = 0.5*import_data(300:600,1:3000);%6000:511
 imshow(data); 
 [numRows,numCols] = size(data);
 
-
-
-
 %% Path and Delta Y
+%set center row that path will traverse
+%create x domain that will be used to create path
+%path is created using a mathematical function, in this case, a sine
+%function. 
+%Noise is added to path by adding an additional sine function
 
-myrow = 45;
+center_row = 200;
 
 x = linspace(0,5,numCols);
-mypath = round(10*sin(5*x));
+mypath = 5*sin(5*x);
+mypath = mypath + 2 * sin(8*x); %noise added
 
+
+%Calculate the slope of path so that Rz can be scaled accordingly
+slope_path = diff(mypath);
+mypath = round(mypath);
 
 %% Display Surface with normal vectors
-%data= smooth(0.5*data); %scaling for different .tif 
+%Displays data as a surface plot
+%quiver3 may be uncommented to show the normal vectors on the plot
+
+
  figure
  [X,Y] = meshgrid(1:numCols,1:numRows);
  [nx, ny,nz]= surfnorm(double(data));
@@ -41,9 +58,14 @@ mypath = round(10*sin(5*x));
  zlabel("zaxis")
  hold off
  
+ 
 
  
 %% Compute Rotation 
+%Calculate Ry and Rx rotations using normal vectors found previously and
+%the dot product formula 
+% To find Ry: normal  plane vector (dot) z axis = cos(Ry)
+% To find Rx: normal plane vector (dot) yaxis = cos(Rx+180)
  
  xaxis = [1 0 0];
  yaxis = [0 1 0];
@@ -54,11 +76,12 @@ mypath = round(10*sin(5*x));
   
  
  %create and fill normal matrix according to path
+
  normal = zeros([numCols 3]);
- normal(1,:) = [nx(myrow,1),ny(myrow,1),nz(myrow,1)];
+ normal(1,:) = [nx(center_row,1),ny(center_row,1),nz(center_row,1)];
  
  for i = 2:numCols
-     normal(i,:) = [nx(myrow+mypath(i),i),ny(myrow+mypath(i),i),nz(myrow+mypath(i),i)];
+     normal(i,:) = [nx(center_row+mypath(i),i),ny(center_row+mypath(i),i),nz(center_row+mypath(i),i)];
 end
  
  
@@ -82,7 +105,7 @@ end
 
  
  
-%% Compute Rotation for longer distance by averaging
+%% Compute Rotation for longer distance by averaging - Unused
 
 % startrange = 1;
 % range = 3;
@@ -99,11 +122,11 @@ end
  
 
 %% Delta Z
-
-%adj determines the scale of the adjacent side of the triangle...this can
-%be used to increase or decrease the value of delta Z and can be any
-%number.
-
+%All of the robot's Z movement is determined by the value of Ry.
+%As Ry is increased, the next movement requires Z to displace so that the
+%flange connector is level with where the tip of the plane was in the
+%previous movement
+%Delta 
  adj = 1000;
  delta_Z = zeros([1 numCols]);
  delta_Z(1) = double(data(1));
@@ -129,14 +152,14 @@ end
 
 % Stretch Z displacement
 
-sum = 800*rescale(sum)+400;
+sum = 900*rescale(sum)+400;
 
 %Plot noisy and filtered data
 figure;
-plot(1:numCols,sum);
-hold on;
+%plot(1:numCols,sum);
+%hold on;
 plot(1:numCols,smoothdata(sum,'gaussian',50));
-
+hold on;
 
 sum = round(smoothdata(sum,'gaussian',50),1);
 
@@ -164,7 +187,6 @@ newdelta_Z = sum-startingZ;
  
  
  delta_Y = round(smoothdata(mypath,'gaussian',80),1);
- Rz = delta_Y;
  %delta_Y = 4*delta_Y;
  plot(1:numCols,delta_Y);
  hold off;
@@ -179,51 +201,31 @@ newdelta_Z = sum-startingZ;
 
 startingX = 1307;
 
-moveX = 400*rescale(Ry)+1200;
+moveX = 500*rescale(Ry)+1100;
 
 moveX = round(smoothdata(moveX,'gaussian',20));
 
 delta_X = moveX-startingX;
 
 
-%% Find extent of Ry 
+%% Delta Rz
+Rz = zeros([1 numCols]);
 
+Rz(1) = 0;
+Rz(2:numCols) = round(15*rescale(slope_path,-1, 1),1);
+%Rz = round(smoothdata(Rz,'gaussian',50),1);
+for i = 1:numCols
+    if(sum(i)>650 && Ry(i)>10)
+        Rz(i) = 0;
+    end
+end
 
-% height = 200:1100;
-% RyRx_Range = 0.00002*height.^2+0.0695*height-17.164;
-% 
-% for i = 1:numCols
-%     if(sum(i)<=1100)
-%        % index = find(height == sum(i));
-%         if(Ry(i)>(-0.00002*sum(i).^2+0.0695*sum(i)-17.164))
-%             Ry(i) = (-0.00002*sum(i).^2+0.0695*sum(i)-17.164);
-%             disp('hello')
-%             
-%         end
-%         if(Rx(i)>(-0.00002*sum(i).^2+0.0695*sum(i)-17.164))
-%             Rx(i) = (-0.00002*sum(i).^2+0.0695*sum(i)-17.164);
-%         end
-%     end
-% end
-
-%% Speed Control
-
-slope = diff(sum);
-speed = zeros([1 numCols]);
-%speed = 20*slope;
-
-%figure;
-%plot(1:numCols-1, speed);
-speed(1) = 200;
-
-N = normalize(slope, 
-
-
-
+figure;
+plot(1:numCols,Rz);
 
 
 %% Create CSV File
- mycsv = [Rx;Ry;delta_X;delta_Y;newdelta_Z]';
+ mycsv = [Rx;Ry;Rz;delta_X;delta_Y;newdelta_Z]';
  csvwrite('rotationvalues.csv',mycsv) %first column is Rx (Roll), second column is Ry (Pitch)
  
  
