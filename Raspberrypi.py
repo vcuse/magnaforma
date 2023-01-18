@@ -37,6 +37,7 @@ pixels = neopixel.NeoPixel(
 )
 
 pixels.fill((0, 255, 0))
+pixels.show()
 
 # Setting points
 cube_points = [n for n in range(num_pixels)]
