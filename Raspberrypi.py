@@ -14,69 +14,80 @@ import neopixel
 import socket
 import math
 
-'''
-Setting Up UDP Server
-'''
-IP = "192.168.0.50"
-PORT =  8000
+class LED_Strip:
+    def __init__(self, Name, pixel_pin, num_pixels):
+        self.Name = Name
+        self.pixel_pin = pixel_pin
+        self.num_pixels = num_pixels
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.bind((IP, PORT))
-print("Binded")
+        self.pixels = neopixel.NeoPixel(
+            self.pixel_pin, self.num_pixels, brightness=100, auto_write=False, pixel_order=neopixel.GRB
+        )
 
+        self.pixels.fill((0, 255, 0))
+        self.pixels.show()
 
-'''
-Setting up NeoPixels
-'''
-pixel_pin = board.D18
-num_pixels = 120
-ORDER = neopixel.GRB
+        # Setting points
+        self.cube_points = [n for n in range(self.num_pixels)]
 
-pixels = neopixel.NeoPixel(
-    pixel_pin, num_pixels, brightness=100, auto_write=False, pixel_order=ORDER
-)
+        self.projection_matrix = [[1, 0, 0],
+                                  [0, 1, 0],
+                                  [0, 0, 0]]
+    
+    def Setup_Virtual_Points(self, y): #Decide how to deal with range
+        # Front side
+        #y = 15
+        for x in range(-15, 16):
+            if y == -1:
+                y = y + self.num_pixels
+            self.cube_points[y] = [[x * ((1 / (self.num_pixels/4)) * 2)], [0], [1]]
+            y = y - 1
 
-pixels.fill((0, 255, 0))
-pixels.show()
+        # Left Side
+        y = 15
+        for x in range(-15, 15):
+            self.cube_points[y] = [[-1], [0], [x * -((1 / (self.num_pixels/4)) * 2)]]
+        y = y + 1
 
-# Setting points
-cube_points = [n for n in range(num_pixels)]
+        #Backside
+        for x in range(-15, 15):
+            self.cube_points[y] = [[x * ((1 / (self.num_pixels/4)) * 2)], [0], [-1]]
+        y = y + 1
 
-projection_matrix = [[1, 0, 0],
-                     [0, 1, 0],
-                     [0, 0, 0]]
+        #Rightside
+        for x in range(-15, 15):
+            self.cube_points[y] = [[1], [0], [x * ((1 / (self.num_pixels/4)) * 2)]]
+        y = y + 1
+    
+    def RotationOfPoints(self):
+        i = 0
+        for point in self.cube_points:
 
+            rotate_x = multiply_m(rotation_x, point)
+            rotate_y = multiply_m(rotation_y, rotate_x)
+            rotate_z = multiply_m(rotation_z, rotate_y)
+            point_2d = multiply_m(self.projection_matrix, rotate_z)
 
-'''
-Setting Up Virtual Points
+            '''
+            Takes virtual plot points and combineds them with
 
-TODO!!!
-We need to make two more cube_points for inner,top, and bottom faces of the planchette
-TODO!!!
-'''
-# Front side
-y = 15
-for x in range(-15, 16):
-    if y == -1:
-        y = y + 120
-    cube_points[y] = [[x * ((1 / (num_pixels/4)) * 2)], [0], [1]]
-    y = y - 1
+            must think of method of simplification ~ ** The robots' Y-axis ** ~ must think of method of simplification
 
-# Left Side
-y = 15
-for x in range(-15, 15):
-    cube_points[y] = [[-1], [0], [x * -((1 / (num_pixels/4)) * 2)]]
-    y = y + 1
+            '''
+            #Local_y = ((point_2d[1][0] * scale) + (Uy * 1000) + 150)
+            #Color = Local_y 
 
-#Backside
-for x in range(-15, 15):
-    cube_points[y] = [[x * ((1 / (num_pixels/4)) * 2)], [0], [-1]]
-    y = y + 1
+            Color = ((point_2d[1][0] * scale) + (Uy * 1000) + 150)
+            if Color > 255:
+                Color = 255
+            if Color < 0:
+                Color = 0
 
-#Rightside
-for x in range(-15, 15):
-    cube_points[y] = [[1], [0], [x * ((1 / (num_pixels/4)) * 2)]]
-    y = y + 1
+            self.pixels[i] = (255 - int(Color), 70, int(Color))
+            i += 1
+        time.sleep(.02)
+        self.pixels.show()
+
 
 # Matrix multiplication function
 def multiply_m(a, b):
@@ -94,73 +105,82 @@ def multiply_m(a, b):
 
     return product
 
-#Scaling for later use
-scale = 250 #Because half the hieght of the square is 250mm
-angle_x = angle_y = angle_z = 0
+if __name__ == "__main__":
+    '''
+    Setting Up UDP Server
+    '''
+    IP = "192.168.0.50"
+    PORT =  8000
 
-'''
-Main Loop
-'''
-while True:
-
-    # Get values from Unity
-    pac, address = sock.recvfrom(35)
-    data = [float(k) for k in str(pac, 'UTF-8').split(',')]
-
-
-    # Matching up data by converting degrees to radian
-    angle_x = math.radians(data[0])
-    angle_y = math.radians(data[1])
-    angle_z = math.radians(data[2])
-
-
-    Uy = data[3]
-
-    # Setup for alg
-    points = [0 for _ in range(len(cube_points))]
-    i = 0
-
-    rotation_x = [[1, 0, 0],
-                  [0, cos(angle_x), -sin(angle_x)],
-                  [0, sin(angle_x), cos(angle_x)]]
-
-    rotation_y = [[cos(angle_y), 0, sin(angle_y)],
-                  [0, 1, 0],
-                  [-sin(angle_y), 0, cos(angle_y)]]
-
-    rotation_z = [[cos(angle_z), -sin(angle_z), 0],
-                  [sin(angle_z), cos(angle_z), 0],
-                  [0, 0, 1]]
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.bind((IP, PORT))
+    print("Binded")
 
 
     '''
-    Rotation of Points
+    Setting up NeoPixels
+    '''
+
+    #Front, Bottom, Inner, Top
+    LED_Strips = [  LED_Strip('Front', board.D18, 120), 
+                    LED_Strip('Inner', board.D19, 120)]
+    LED_Strips[0].Setup_Virtual_Points(15)
+
+    '''
+    Setting Up Virtual Points
 
     TODO!!!
-    We need to make 2 more for loops that correlate with the other faces so far we only have the outwards face completed
+    We need to make two more cube_points for inner,top, and bottom faces of the planchette
     TODO!!!
     '''
-    for point in cube_points:
 
-        rotate_x = multiply_m(rotation_x, point)
-        rotate_y = multiply_m(rotation_y, rotate_x)
-        rotate_z = multiply_m(rotation_z, rotate_y)
-        point_2d = multiply_m(projection_matrix, rotate_z)
+    #Scaling for later use
+    scale = 250 #Because half the hieght of the square is 250mm
+    angle_x = angle_y = angle_z = 0
+
+    '''
+    Main Loop
+    '''
+    while True:
+
+        # Get values from Unity
+        pac, address = sock.recvfrom(35)
+        data = [float(k) for k in str(pac, 'UTF-8').split(',')]
+
+
+        # Matching up data by converting degrees to radian
+        angle_x = math.radians(data[0])
+        angle_y = math.radians(data[1])
+        angle_z = math.radians(data[2])
+
+
+        Uy = data[3]
+
+        # Setup for alg
+        #points = [0 for _ in range(len(cube_points))]
+
+        rotation_x = [[1, 0, 0],
+                      [0, cos(angle_x), -sin(angle_x)],
+                      [0, sin(angle_x), cos(angle_x)]]
+
+        rotation_y = [[cos(angle_y), 0, sin(angle_y)],
+                      [0, 1, 0],
+                      [-sin(angle_y), 0, cos(angle_y)]]
+
+        rotation_z = [[cos(angle_z), -sin(angle_z), 0],
+                      [sin(angle_z), cos(angle_z), 0],
+                      [0, 0, 1]]
+
 
         '''
-        Takes virtual plot points and combineds them with
+        Rotation of Points
 
-        must think of method of simplification ~ ** The robots' Y-axis ** ~ must think of method of simplification
-
+        TODO!!!
+        We need to make 2 more for loops that correlate with the other faces. So far we only have the outwards face completed.
+        TODO!!!
         '''
-        Local_y = ((point_2d[1][0] * scale) + (Uy * 1000) + 150)
-        Color = Local_y #Nedds to be out of 255
 
-        if Color > 255:
-            Color = 255
-        if Color < 0:
-            Color = 0
-        pixels[i] = (255 - int(Color), 70, int(Color))
-        i += 1
-    time.sleep(.02)
-    pixels.show()
+        for LED_Strip in LED_Strips:
+            LED_Strip.RotationOfPoints()
+        
+
