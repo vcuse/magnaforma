@@ -34,10 +34,11 @@ class LED_Strip:
                                   [0, 1, 0],
                                   [0, 0, 0]]
     
-    def Setup_Virtual_Points(self, y): #Decide how to deal with range
+    def Setup_Virtual_Points(self, y, Frontside, Leftside, Backside, Rightside): #Decide how to deal with range
         # Front side
         #y = 15
-        for x in range(-15, 16):
+        #for x in range(-15, 16):
+        for x in range(Frontside[0], Frontside[1]):
             if y == -1:
                 y = y + self.num_pixels
             self.cube_points[y] = [[x * ((1 / (self.num_pixels/4)) * 2)], [0], [1]]
@@ -45,19 +46,22 @@ class LED_Strip:
 
         # Left Side
         y = 15
-        for x in range(-15, 15):
+        #for x in range(-15, 15):
+        for x in range(Leftside[0], Leftside[1]):
             self.cube_points[y] = [[-1], [0], [x * -((1 / (self.num_pixels/4)) * 2)]]
-        y = y + 1
+            y = y + 1
 
         #Backside
-        for x in range(-15, 15):
+        #for x in range(-15, 15):
+        for x in range(Backside[0], Backside[1]):
             self.cube_points[y] = [[x * ((1 / (self.num_pixels/4)) * 2)], [0], [-1]]
-        y = y + 1
+            y = y + 1
 
         #Rightside
-        for x in range(-15, 15):
+        #for x in range(-15, 15):
+        for x in range(Rightside[0], Rightside[1]):
             self.cube_points[y] = [[1], [0], [x * ((1 / (self.num_pixels/4)) * 2)]]
-        y = y + 1
+            y = y + 1
     
     def RotationOfPoints(self):
         i = 0
@@ -124,7 +128,7 @@ if __name__ == "__main__":
     #Front, Bottom, Inner, Top
     LED_Strips = [  LED_Strip('Front', board.D18, 120), 
                     LED_Strip('Inner', board.D19, 120)]
-    LED_Strips[0].Setup_Virtual_Points(15)
+    LED_Strips[0].Setup_Virtual_Points(15, [-15,16], [-15,15], [-15,15], [-15,15])
 
     '''
     Setting Up Virtual Points
