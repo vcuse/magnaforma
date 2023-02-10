@@ -63,7 +63,19 @@ class LED_Strip:
             self.cube_points[y] = [[1], [0], [x * ((1 / (self.num_pixels/4)) * 2)]]
             y = y + 1
     
-    def RotationOfPoints(self):
+    def RotationOfPoints(self, angle_x, angle_y, angle_z, Uy):
+        rotation_x = [[1, 0, 0],
+                      [0, cos(angle_x), -sin(angle_x)],
+                      [0, sin(angle_x), cos(angle_x)]]
+
+        rotation_y = [[cos(angle_y), 0, sin(angle_y)],
+                      [0, 1, 0],
+                      [-sin(angle_y), 0, cos(angle_y)]]
+
+        rotation_z = [[cos(angle_z), -sin(angle_z), 0],
+                      [sin(angle_z), cos(angle_z), 0],
+                      [0, 0, 1]]
+        
         i = 0
         for point in self.cube_points:
 
@@ -171,18 +183,6 @@ if __name__ == "__main__":
         # Setup for alg
         #points = [0 for _ in range(len(cube_points))]
 
-        rotation_x = [[1, 0, 0],
-                      [0, cos(angle_x), -sin(angle_x)],
-                      [0, sin(angle_x), cos(angle_x)]]
-
-        rotation_y = [[cos(angle_y), 0, sin(angle_y)],
-                      [0, 1, 0],
-                      [-sin(angle_y), 0, cos(angle_y)]]
-
-        rotation_z = [[cos(angle_z), -sin(angle_z), 0],
-                      [sin(angle_z), cos(angle_z), 0],
-                      [0, 0, 1]]
-
 
         '''
         Rotation of Points
@@ -193,6 +193,6 @@ if __name__ == "__main__":
         '''
 
         for LED_Strip in LED_Strips:
-            LED_Strip.RotationOfPoints()
+            LED_Strip.RotationOfPoints(angle_x, angle_y, angle_z, Uy)
         
 
